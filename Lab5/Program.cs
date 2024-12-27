@@ -196,62 +196,34 @@ public class Program
         }
         return ind;
     }
+    public void DeleteRow (ref int[,] A,int indA)
+    {
+        int[,] newA = new int[A.GetLength(0)-1, A.GetLength(1)];
+        int n = 0;
+
+        for (int i = 0; i < A.GetLength(0); i++)
+        {
+            if (indA != i)
+            {
+                for (int j = 0; j < A.GetLength(1); j++)
+                {
+                    newA[n, j] = A[i, j];
+
+                }
+                n++;
+            }
+        }
+        A = newA;
+    }
+
     public void Task_2_3(ref int[,] B, ref int[,] C)
     {
         // code here
 
         int indB = FindDiagonalMaxIndex(B);
         int indC = FindDiagonalMaxIndex(C);
-        int[,] newB = new int[4,5];
-        int[,] newC = new int[5, 6];
-        int n = 0;
-
-        for (int i = 0; i < B.GetLength(0); i++)
-        {
-            if(indB != i)
-            {
-                for(int j = 0; j < B.GetLength(1); j++)
-                {
-                    newB[n,j]= B[i,j];
-
-                }
-                n++;
-            }
-        }
-        n = 0;
-        for (int i = 0; i < C.GetLength(0); i++)
-        {
-            if (indC != i)
-            {
-                for (int j = 0; j < C.GetLength(1); j++)
-                {
-                    newC[n, j] = C[i, j];
-
-                }
-                n++;
-            }
-        }
-        /*for (int i = 0; i < 4; i++)
-        {
-            for (int j = 0; j < 5; j++)
-            {
-                Console.Write(newB[i, j] + " ");
-            }
-            Console.WriteLine();
-        
-        }
-        Console.WriteLine();
-        for (int i = 0; i< 5; i++)
-        {
-            for (int j = 0; j< 6; j++)
-            {
-                Console.Write(newC[i, j] + " ");
-            }
-Console.WriteLine();
-            
-        }*/
-        B = newB;
-        C = newC;
+        DeleteRow(ref B, indB);
+        DeleteRow(ref C, indC);
         // end
     }
 
@@ -1052,7 +1024,7 @@ Console.WriteLine();
 
     public int CountSignFlips(YFunction yfunction, double a, double b, double h)
     {
-        int count =1;
+        int count =0;
         double last = yfunction(a);
         for (double x = a + h; x <= b; x += h)
         {
@@ -1061,7 +1033,7 @@ Console.WriteLine();
             {
                 count++;
             }
-            last = now;
+            if(now!=0)last = now;
            
         }
         return count;
